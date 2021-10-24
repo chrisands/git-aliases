@@ -1,5 +1,11 @@
-function main_branch() {
-  git_main_branch
+function git_main_branch() {
+  local branch
+  branch="$(git config init.defaultBranch)"
+  if [[ -n $branch ]]; then
+    echo $branch
+    return
+  fi
+  echo master
 }
 
 alias ga="git add"
@@ -25,7 +31,7 @@ alias gcam="git commit --all --message"
 
 alias gco="git checkout"
 alias gcb="git checkout -b"
-alias gcom="git checkout $(main_branch)"
+alias gcom='git checkout $(git_main_branch)'
 
 alias gclean="git clean -id"
 
@@ -43,7 +49,7 @@ alias gds="git diff --staged"
 alias gfs="sk -c 'ls-files' --bind 'enter:execute(nvim {})+abort'"
 
 alias gl="git pull"
-alias glm="git pull $(main_branch)"
+alias glm='git pull $(git_main_branch)'
 
 alias glg="git log --stat"
 alias glgp="git log --stat --patch"
@@ -60,11 +66,11 @@ alias grbc="git rebase --continue"
 alias grbs="git rebase --skip"
 alias grbo="git rebase --onto"
 alias grbi="git rebase --interactive"
-alias grbm="git rebase $(main_branch)"
-alias grbmi="git rebase --interactive $(main_branch)"
+alias grbm='git rebase $(git_main_branch)'
+alias grbmi='git rebase --interactive $(git_main_branch)'
 
-alias glrb="git pull $(main_branch); git rebase $(main_branch)"
-alias glrbi="git pull $(main_branch); git rebase --interactive $(main_branch)"
+alias glrb='git pull $(git_main_branch); git rebase $(main_branch)'
+alias glrbi='git pull $(git_main_branch); git rebase --interactive $(main_branch)'
 
 alias grev="git revert"
 
